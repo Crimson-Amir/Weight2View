@@ -1,4 +1,5 @@
 import '../style.css';
+import('preline')
 import { createApp } from 'vue';
 
   const app = {
