@@ -31,7 +31,7 @@ async def find_first_item(item_condition: schema.ItemCondition):
         if item:
             width, height, length = calculate_size_by_item(item, item_condition.weight_in_gram)
             svg_plot = create_svg_source(width, height, length)
-
+            print(svg_plot)
             return {
                 'status': 'OK',
                 'width': width,

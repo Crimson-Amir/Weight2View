@@ -1,5 +1,5 @@
 def convert_mm_to_cm(mm):
-    return mm / 10
+    return round(mm / 10, 2)
 
 def calculate_size_by_item(item_obj, weight):
     # Solid Items
