@@ -1,5 +1,6 @@
 from pydantic import BaseModel
 
+
 class AddNewItemSchema(BaseModel):
     item_name: str
     weight_in_gram: float
@@ -8,9 +9,5 @@ class AddNewItemSchema(BaseModel):
     length_mm: float
 
 class ItemCondition(BaseModel):
-    item_id: str | None = None
-    item_name: str | None = None
-    weight_in_gram: float | None = None
-    height_mm: float | None = None
-    width_mm: float | None = None
-    length_mm: float | None = None
+    item_id: str
+    weight_in_gram: float

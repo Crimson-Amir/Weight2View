@@ -16,8 +16,8 @@ def add_new_item_to_db(**kwargs):
     post_id = item_collection.insert_one(kwargs).inserted_id
     return post_id
 
-def find_one_item(condition):
-    return item_collection.find_one(condition)
+def find_one_item(item_id):
+    return item_collection.find_one(item_id)
 
 def find_items(condition:dict, includes_parameter:dict):
     return item_collection.find(condition, includes_parameter)

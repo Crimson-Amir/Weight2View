@@ -1,11 +1,17 @@
+import logging
+
 from fastapi import FastAPI, Request
 import schema, mongoDB_crud
+from functions import calculate_size_by_item
+from plot import create_svg_source
+from bson.objectid import ObjectId
 
 app = FastAPI()
 
 @app.get('/')
 async def home():
     return {'status': 'OK'}
+
 
 @app.post('/add_new_item_to_db')
 async def add_new_item_to_database(new_item: schema.AddNewItemSchema):
@@ -15,17 +21,34 @@ async def add_new_item_to_database(new_item: schema.AddNewItemSchema):
     except Exception as e:
         return {'status': 'Error', 'error_type': type(e), 'error_reason': str(e)}
 
+
 @app.post('/find_first_item')
 async def find_first_item(item_condition: schema.ItemCondition):
     try:
-        cleand_data = {k: v for k, v in item_condition.model_dump().items() if v is not None}
-        item = mongoDB_crud.find_one_item(cleand_data)
+        item_id = ObjectId(item_condition.item_id)
+        item = mongoDB_crud.find_one_item(item_id)
+
         if item:
-            item['_id'] = str(item['_id'])
-            return {'status': 'OK', 'item': dict(item)}
+            width, height, length = calculate_size_by_item(item, item_condition.weight_in_gram)
+            svg_plot = create_svg_source(width, height, length)
+
+            return {
+                'status': 'OK',
+                'width': width,
+                'height': height,
+                'length': length,
+                'svg_plot': svg_plot
+            }
+
         return {'status': 'NOK', 'detail': 'there is no item with this specification'}
+    except KeyError as e:
+        return {
+            'status': 'Error',
+            'error_type': type(e),
+            'error_reason': f"item doesn't have required field. {str(e)}"
+        }
     except Exception as e:
-        return {'status': 'Error', 'error_type': type(e), 'error_reason': str(e)}
+        return {'status': 'Error', 'error_type': str(type(e)), 'error_reason': str(e)}
 
 
 @app.post('/find_items')
