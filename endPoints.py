@@ -17,7 +17,7 @@ async def home():
 async def add_new_item_to_database(new_item: schema.AddNewItemSchema):
     try:
         document_id = mongoDB_crud.add_new_item_to_db(**new_item.model_dump())
-        return {'status': 'OK', 'document_id': document_id}
+        return {'status': 'OK', 'document_id': str(document_id)}
     except Exception as e:
         return {'status': 'Error', 'error_type': type(e), 'error_reason': str(e)}
 
