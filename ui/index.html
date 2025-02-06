@@ -100,9 +100,12 @@
                   </div>
                 <div class="amount flex-1">
                     <div class="space-y-3">
-                        <input type="text" class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600" placeholder="Enter the amount... (in gram)">
-                      </div>
+                      <input type="text" v-model="weight" class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600" placeholder="Enter the amount... (in gram)">
+                    </div>
                 </div>
+                <button @click="findingItem" type="button" class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 focus:outline-none focus:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none">
+                  Go
+                </button>
             </div>
             <div class="flex flex-col gap-[20px] h-full">
                 <div class="flex flex-row items-center justify-between">
@@ -112,7 +115,11 @@
                     </button>
                 </div>
                 <div class="canvasHolder h-full">
-                    <div class="canvas bg-white rounded-md h-full"></div>
+                    <div class="canvas bg-white rounded-md h-full flex items-center justify-center">
+                      <div v-if="searchIntialized" v-html="svg"></div>
+                      <div v-else-if="loading">Loading...</div>
+                      <div v-else class="font-light">The result will be shown here</div>
+                    </div>
                 </div>
             </div>
         </main>

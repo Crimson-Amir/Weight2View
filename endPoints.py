@@ -4,9 +4,18 @@ from fastapi import FastAPI, Request
 import schema, mongoDB_crud
 from functions import calculate_size_by_item
 from plot import create_svg_source
-from bson.objectid import ObjectId
+from bson.objectid import ObjectId 
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Change "*" to a specific origin for security
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 @app.get('/')
 async def home():
