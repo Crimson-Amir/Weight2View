@@ -63,7 +63,6 @@ async def find_first_item(item_condition: schema.ItemCondition):
 @app.post('/find_items')
 async def find_items(item_condition: schema.ItemCondition):
     try:
-        cleand_data = {k: v for k, v in item_condition.model_dump().items() if v is not None}
         items = mongoDB_crud.find_items(cleand_data, {})
         if items:
             items_list = []

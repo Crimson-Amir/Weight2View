@@ -11,3 +11,7 @@ class AddNewItemSchema(BaseModel):
 class ItemCondition(BaseModel):
     item_id: str
     weight_in_gram: float
+
+class FindItemCondition(BaseModel):
+    item_name: str
+    top_number: int | None = 10
