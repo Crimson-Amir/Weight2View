@@ -19,15 +19,10 @@ def add_new_item_to_db(**kwargs):
 def find_one_item(item_id):
     return item_collection.find_one(item_id)
 
-def find_items(condition:dict, includes_parameter:dict):
-    return item_collection.find(condition, includes_parameter)
-
-def search_in_items(search, **kwargs):
-    return item_collection.aggregate([
-        {
-            '$search': {
-                search
-            }
-        },
-        kwargs
-    ])
+def find_items(name_filter, limit_value):
+    pipeline = [
+        {"$match": {"item_name": {"$regex": name_filter, "$options": "i"}}},
+        {"$project": {"item_name": 1, "_id": 1}},
+        {"$limit": limit_value}
+    ]
+    return item_collection.aggregate(pipeline)

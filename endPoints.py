@@ -61,12 +61,13 @@ async def find_first_item(item_condition: schema.ItemCondition):
 
 
 @app.post('/find_items')
-async def find_items(item_condition: schema.ItemCondition):
+async def find_items(item_condition: schema.FindItemCondition):
     try:
-        items = mongoDB_crud.find_items(cleand_data, {})
+        items = mongoDB_crud.find_items(item_condition.item_name, item_condition.top_number)
         if items:
             items_list = []
             for item in items:
+                print(item)
                 item['_id'] = str(item['_id'])
                 items_list.append(item)
             return {'status': 'OK', 'items': items_list}
