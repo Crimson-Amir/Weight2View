@@ -27,7 +27,7 @@
             <div class="inputs flex flex-row gap-[20px]">
                 <div class="relative flex-1" data-hs-combo-box="">
                     <div class="relative">
-                      <input class="py-3 ps-4 pe-9 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600" type="text" role="combobox" aria-expanded="false" placeholder="Enter the object's name..." data-hs-combo-box-input="">
+                      <input v-model="searchText" @keypress="search" class="py-3 ps-4 pe-9 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600" type="text" role="combobox" aria-expanded="false" placeholder="Enter the object's name..." data-hs-combo-box-input="">
                       <div class="absolute top-1/2 end-3 -translate-y-1/2" aria-expanded="false" data-hs-combo-box-toggle="">
                         <svg class="shrink-0 size-3.5 text-gray-500 dark:text-neutral-500" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                           <path d="m7 15 5 5 5-5"></path>
@@ -36,59 +36,9 @@
                       </div>
                     </div>
                     <div class="absolute z-50 w-full max-h-72 p-1 bg-white border border-gray-200 rounded-lg overflow-hidden overflow-y-auto [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:bg-gray-100 [&::-webkit-scrollbar-thumb]:bg-gray-300 dark:[&::-webkit-scrollbar-track]:bg-neutral-700 dark:[&::-webkit-scrollbar-thumb]:bg-neutral-500 dark:bg-neutral-900 dark:border-neutral-700" style="display: none;" data-hs-combo-box-output="">
-                      <div class="cursor-pointer py-2 px-4 w-full text-sm text-gray-800 hover:bg-gray-100 rounded-lg focus:outline-none focus:bg-gray-100 dark:bg-neutral-900 dark:hover:bg-neutral-800 dark:text-neutral-200 dark:focus:bg-neutral-800" tabindex="0" data-hs-combo-box-output-item="">
+                      <div v-for="item in searchItems" class="cursor-pointer py-2 px-4 w-full text-sm text-gray-800 hover:bg-gray-100 rounded-lg focus:outline-none focus:bg-gray-100 dark:bg-neutral-900 dark:hover:bg-neutral-800 dark:text-neutral-200 dark:focus:bg-neutral-800" tabindex="0" data-hs-combo-box-output-item="">
                         <div class="flex justify-between items-center w-full">
-                          <span data-hs-combo-box-search-text="Argentina" data-hs-combo-box-value="">Argentina</span>
-                          <span class="hidden hs-combo-box-selected:block">
-                            <svg class="shrink-0 size-3.5 text-blue-600 dark:text-blue-500" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                              <path d="M20 6 9 17l-5-5"></path>
-                            </svg>
-                          </span>
-                        </div>
-                      </div>
-                      <div class="cursor-pointer py-2 px-4 w-full text-sm text-gray-800 hover:bg-gray-100 rounded-lg focus:outline-none focus:bg-gray-100 dark:bg-neutral-900 dark:hover:bg-neutral-800 dark:text-neutral-200 dark:focus:bg-neutral-800" tabindex="1" data-hs-combo-box-output-item="">
-                        <div class="flex justify-between items-center w-full">
-                          <span data-hs-combo-box-search-text="Brazil" data-hs-combo-box-value="">Brazil</span>
-                          <span class="hidden hs-combo-box-selected:block">
-                            <svg class="shrink-0 size-3.5 text-blue-600 dark:text-blue-500" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                              <path d="M20 6 9 17l-5-5"></path>
-                            </svg>
-                          </span>
-                        </div>
-                      </div>
-                      <div class="cursor-pointer py-2 px-4 w-full text-sm text-gray-800 hover:bg-gray-100 rounded-lg focus:outline-none focus:bg-gray-100 dark:bg-neutral-900 dark:hover:bg-neutral-800 dark:text-neutral-200 dark:focus:bg-neutral-800" tabindex="2" data-hs-combo-box-output-item="">
-                        <div class="flex justify-between items-center w-full">
-                          <span data-hs-combo-box-search-text="China" data-hs-combo-box-value="">China</span>
-                          <span class="hidden hs-combo-box-selected:block">
-                            <svg class="shrink-0 size-3.5 text-blue-600 dark:text-blue-500" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                              <path d="M20 6 9 17l-5-5"></path>
-                            </svg>
-                          </span>
-                        </div>
-                      </div>
-                      <div class="cursor-pointer py-2 px-4 w-full text-sm text-gray-800 hover:bg-gray-100 rounded-lg focus:outline-none focus:bg-gray-100 dark:bg-neutral-900 dark:hover:bg-neutral-800 dark:text-neutral-200 dark:focus:bg-neutral-800" tabindex="3" data-hs-combo-box-output-item="">
-                        <div class="flex justify-between items-center w-full">
-                          <span data-hs-combo-box-search-text="USA" data-hs-combo-box-value="">USA</span>
-                          <span class="hidden hs-combo-box-selected:block">
-                            <svg class="shrink-0 size-3.5 text-blue-600 dark:text-blue-500" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                              <path d="M20 6 9 17l-5-5"></path>
-                            </svg>
-                          </span>
-                        </div>
-                      </div>
-                      <div class="cursor-pointer py-2 px-4 w-full text-sm text-gray-800 hover:bg-gray-100 rounded-lg focus:outline-none focus:bg-gray-100 dark:bg-neutral-900 dark:hover:bg-neutral-800 dark:text-neutral-200 dark:focus:bg-neutral-800" tabindex="3" data-hs-combo-box-output-item="">
-                        <div class="flex justify-between items-center w-full">
-                          <span data-hs-combo-box-search-text="Italy" data-hs-combo-box-value="">Italy</span>
-                          <span class="hidden hs-combo-box-selected:block">
-                            <svg class="shrink-0 size-3.5 text-blue-600 dark:text-blue-500" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                              <path d="M20 6 9 17l-5-5"></path>
-                            </svg>
-                          </span>
-                        </div>
-                      </div>
-                      <div class="cursor-pointer py-2 px-4 w-full text-sm text-gray-800 hover:bg-gray-100 rounded-lg focus:outline-none focus:bg-gray-100 dark:bg-neutral-900 dark:hover:bg-neutral-800 dark:text-neutral-200 dark:focus:bg-neutral-800" tabindex="3" data-hs-combo-box-output-item="">
-                        <div class="flex justify-between items-center w-full">
-                          <span data-hs-combo-box-search-text="France" data-hs-combo-box-value="">France</span>
+                          <span :data-hs-combo-box-search-text="item.item_name" data-hs-combo-box-value="">{{item.item_name}}</span>
                           <span class="hidden hs-combo-box-selected:block">
                             <svg class="shrink-0 size-3.5 text-blue-600 dark:text-blue-500" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                               <path d="M20 6 9 17l-5-5"></path>
@@ -97,7 +47,7 @@
                         </div>
                       </div>
                     </div>
-                  </div>
+                 </div>
                 <div class="amount flex-1">
                     <div class="space-y-3">
                       <input type="text" v-model="weight" class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600" placeholder="Enter the amount... (in gram)">
@@ -110,7 +60,7 @@
             <div class="flex flex-col gap-[20px] h-full">
                 <div class="flex flex-row items-center justify-between">
                     <h1 class="font-light text-lg">Preview</h1>
-                    <button type="button" class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 focus:outline-none focus:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none">
+                    <button @click="reset" type="button" class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 focus:outline-none focus:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none">
                         Reset
                     </button>
                 </div>

@@ -21,3 +21,32 @@ export const findItem = async(weight, id) =>
         console.error(error)
     }
 }
+
+export const findItems = async(name, topNum, signalAborter) => 
+    {
+        console.log("Recieved signal: ")
+        console.log(signalAborter)
+        try 
+        {
+            const req = await fetch(import.meta.env.VITE_DB_URL+"find_items", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    "item_name": name,
+                    "top_number": parseFloat(topNum)
+                }),
+                signal: signalAborter
+            })
+    
+            const res = await req.json()
+
+            return res.items
+        } 
+        catch (error) {
+            if (error.name !== "AbortError") {
+                console.error("Error fetching data:", error);
+            }
+        }
+    }
