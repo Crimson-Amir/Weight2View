@@ -59,4 +59,4 @@ def create_svg_source(width, height, length):
     svg_buffer.close()
     return svg_content
 
-# create_svg_source(24, 3, 2)
+print(create_svg_source(24, 3, 2))

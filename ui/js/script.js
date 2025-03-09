@@ -18,7 +18,10 @@ import axios from 'axios';
         searchIntialized: false,
         loading: false,
         searchText: "",
-        searchItems: ['ali'],
+        searchItems: [
+          { item_name: 'apple' },
+          { item_name: 'banana' }
+        ],
         debouncedSearch: debounce(() => {}, 300)
       }
     },
@@ -53,14 +56,14 @@ import axios from 'axios';
 
         if(this.searchText.length > 2)
         {
-          axios.post(import.meta.env.VITE_DB_URL+"find_items",{
+          axios.post('http://localhost:8000/'+"find_items",{
             item_name: this.searchText,
             top_number: parseFloat(10)
           })
           .then((res) => {
-            //  this.searchItems = Array.isArray(res.data.items) ? res.data.items : [];
-            //  console.log(this.searchItems)
-            //this.searchItems = ['ali']
+//              this.searchItems = Array.isArray(res.data.items) ? res.data.items : [];
+//              console.log(this.searchItems)
+                console.log(res.data.items)
             })
         }
       }
